@@ -13,6 +13,7 @@ rough as hell. will refine later if there's interest.
 * get [rubygems](http://rubygems.org/pages/download)
 * [nokogiri](http://rubygems.org/gems/nokogiri) -- run `gem install nokogiri`
 * [kramdown](http://rubygems.org/gems/kramdown) -- run `gem install kramdown`
+* [progressbar](http://rubygems.org/gems/progressbar) -- for nicer output
 
 ## license
 
