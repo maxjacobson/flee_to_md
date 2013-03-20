@@ -1,22 +1,20 @@
-# flee
+# flee to md
 
 helps convert a big xml file (like from squarespace) to markdown files
+
+## dependencies
+
+* get [rubygems](http://rubygems.org/pages/download)
+* run `gem install nokogiri kramdown ruby-progressbar`
 
 ## usage
 
 * download this repo and run `ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
 
-## dependencies
-
-* get [rubygems](http://rubygems.org/pages/download)
-* [nokogiri](http://rubygems.org/gems/nokogiri) -- run `gem install nokogiri`
-* [kramdown](http://rubygems.org/gems/kramdown) -- run `gem install kramdown`
-* [progressbar](http://rubygems.org/gems/progressbar) -- for nicer output
-
 ## changelog
 
 * **2013-03-20**, v0.0.3
-    * removed web interface (connections all timed out)
+    * removed web interface ([too slow for (heroku's) love](http://www.youtube.com/watch?v=fiyROQNLhSU))
     * added 1.8.7 compatibility
 * **2013-03-20**, v0.0.2
     * added web interface
