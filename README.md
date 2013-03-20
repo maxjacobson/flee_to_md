@@ -4,8 +4,7 @@ helps convert a big xml file (like from squarespace) to markdown files
 
 ## usage
 
-* convert your xml file online at <http://flee-to-md.herokuapp.com> (will only work for small blogs, because heroku times out after 30 seconds (if it works at all))
-* or fork this repo and run `ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
+* download this repo and run `ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
 
 ## dependencies
 
@@ -16,6 +15,9 @@ helps convert a big xml file (like from squarespace) to markdown files
 
 ## changelog
 
+* **2013-03-20**, v0.0.3
+    * removed web interface (connections all timed out)
+    * added 1.8.7 compatibility
 * **2013-03-20**, v0.0.2
     * added web interface
     * titles in single quotes
@@ -23,19 +25,8 @@ helps convert a big xml file (like from squarespace) to markdown files
 
 ## roadmap
 
-here's a little scratch I took out of the home.haml file... some options could be added
-
-    %p
-      convert from
-      %label
-        %input{:type => 'radio', :name => 'from_format', :value => 'squarespace', :id => 'from_squarespace', :checked => 'true'} squarespace
-        %input{:type => 'radio', :name => 'from_format', :value => 'wordpress', :id => 'from_wordpress', :disabled => 'disabled'} wordpress
-    %p
-      convert to
-      %label
-        %input{:type => 'radio', :name => 'to_format', :value => 'statamic', :id => 'to_statamic', :checked => 'true'} statamic
-        %input{:type => 'radio', :name => 'to_format', :value => 'statamic', :id => 'to_pelican', :disabled => 'disabled'} pelican
-        %input{:type => 'radio', :name => 'to_format', :value => 'statamic', :id => 'to_jekyll', :disabled => 'disabled'} jekyll (and octopress)
+* maybe make sure it works with wordpress exports
+* maybe support other output structures
 
 ## license
 
