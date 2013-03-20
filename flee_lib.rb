@@ -1,6 +1,7 @@
+require 'rubygems'
 require 'nokogiri' # helps parse xml
 require 'kramdown' # markdown implementation
-require 'progressbar' # for nice output
+require 'ruby-progressbar' # for nice output
 
 class Blog
   attr_accessor :pages
@@ -9,13 +10,12 @@ class Blog
     document = Nokogiri::XML xml
     @pages = Array.new
     items = document.xpath("//item")
-    pbar = ProgressBar.new("Reading", items.length)
+    prog = ProgressBar.create(:title => "Reading", :total => items.length)
     items.each_with_index do |item, index|
       @pages.push Page.new(item)
       # break if index == 4
-      pbar.inc
+      prog.increment
     end
-    pbar.finish
   end
   def write
     foldername = @filename.gsub(/\.xml$/, '')
@@ -25,11 +25,11 @@ class Blog
       @foldername = "#{i}-#{foldername}"
       i += 1
     end
-    pbar = ProgressBar.new("Writing", @pages.length)
+    prog = ProgressBar.create(:title => "Writing", :total => @pages.length)
     `mkdir #{@foldername}`
     @pages.each do |page|
       str = "---\n"
-      str << "title: #{page.title}\n" if page.title.nil? == false
+      str << "title: '#{page.title}'\n"
       str << "date: #{page.date.strftime "%Y-%m-%d %H:%M:%S %z"}\n"
       if page.categories.length > 0
         str << "categories: [#{page.categories.join(", ")}]\n"
@@ -44,10 +44,10 @@ class Blog
       str << page.markdown
       page_filename = "#{page.date.strftime('%Y-%m-%d')}-#{page.title.downcase.gsub(/\s+/, '-').gsub(/[^-\w\d]/,'')}.md"
       File.open("#{@foldername}/#{page_filename}", 'w') { |file| file.write(str) }
-      pbar.inc
+      prog.increment
     end
-    pbar.finish
     puts "Written to #{@foldername}/"
+    return @foldername
   end
 end
 
@@ -102,7 +102,3 @@ class Page
     return Time.new year, month, day, hour, minute, second, offset
   end
 end
-
-
-
-

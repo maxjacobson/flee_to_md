@@ -1,12 +1,11 @@
 # flee
 
-helps convert a big xml file (from squarespace maybe) to markdown files
-
-rough as hell. will refine later if there's interest.
+helps convert a big xml file (like from squarespace) to markdown files
 
 ## usage
 
-`ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
+* convert your xml file online at <http://flee_to_md.herokuapp.com>
+* or fork this repo and run `ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
 
 ## dependencies
 
@@ -14,6 +13,30 @@ rough as hell. will refine later if there's interest.
 * [nokogiri](http://rubygems.org/gems/nokogiri) -- run `gem install nokogiri`
 * [kramdown](http://rubygems.org/gems/kramdown) -- run `gem install kramdown`
 * [progressbar](http://rubygems.org/gems/progressbar) -- for nicer output
+
+## changelog
+
+* **2013-03-20**, v0.0.2
+    * ruby 1.8.7 compatibility
+    * titles in single quotes
+    * updated the progressbar bc the one I was using was gonna pull a Google Reader and stop working in July
+* **2013-03-19**, v0.0.1 first try
+
+## roadmap
+
+here's a little scratch I took out of the home.haml file... some options could be added
+
+    %p
+      convert from
+      %label
+        %input{:type => 'radio', :name => 'from_format', :value => 'squarespace', :id => 'from_squarespace', :checked => 'true'} squarespace
+        %input{:type => 'radio', :name => 'from_format', :value => 'wordpress', :id => 'from_wordpress', :disabled => 'disabled'} wordpress
+    %p
+      convert to
+      %label
+        %input{:type => 'radio', :name => 'to_format', :value => 'statamic', :id => 'to_statamic', :checked => 'true'} statamic
+        %input{:type => 'radio', :name => 'to_format', :value => 'statamic', :id => 'to_pelican', :disabled => 'disabled'} pelican
+        %input{:type => 'radio', :name => 'to_format', :value => 'statamic', :id => 'to_jekyll', :disabled => 'disabled'} jekyll (and octopress)
 
 ## license
 
