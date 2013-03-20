@@ -62,12 +62,6 @@ class Page
       end
     end
   end
-  def output_statamic
-    str = "---"
-  end
-  def write
-    File.open(yourfile, 'w') { |file| file.write("your text") }
-  end
 end
 
 blog = Blog.new ARGV[0]
