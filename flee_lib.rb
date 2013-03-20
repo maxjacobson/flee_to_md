@@ -25,9 +25,16 @@ class Blog
     foldername = @filename.gsub(/\.xml$/, '')
     @foldername = foldername
     i = 1
-    until Dir.exists?(@foldername) == false
-      @foldername = "#{i}-#{foldername}"
-      i += 1
+    if RUBY_VERSION.to_f >= 1.9
+      until Dir.exists?(@foldername) == false
+        @foldername = "#{i}-#{foldername}"
+        i += 1
+      end
+    else
+      until File.exists?(@foldername) == false
+        @foldername = "#{i}-#{foldername}"
+        i += 1
+      end
     end
     prog = ProgressBar.create(:title => "Writing", :total => @pages.length)
     `mkdir #{@foldername}`
@@ -103,6 +110,10 @@ class Page
     minute = match[5]
     second = match[6].to_i
     offset = match[7].sub(/(\d{2})(\d{2})/,'\1:\2')
-    return Time.new year, month, day, hour, minute, second, offset
+    if RUBY_VERSION.to_f >= 1.9
+      return Time.new year, month, day, hour, minute, second, offset
+    else
+      return Time.local(year,month, day, hour, minute, second)
+    end
   end
 end
