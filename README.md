@@ -4,7 +4,7 @@ helps convert a big xml file (like from squarespace) to markdown files
 
 ## usage
 
-* convert your xml file online at <http://flee_to_md.herokuapp.com>
+* convert your xml file online at <http://flee-to-md.herokuapp.com> (will only work for small blogs, because heroku times out after 30 seconds (if it works at all))
 * or fork this repo and run `ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
 
 ## dependencies
@@ -17,9 +17,8 @@ helps convert a big xml file (like from squarespace) to markdown files
 ## changelog
 
 * **2013-03-20**, v0.0.2
-    * ruby 1.8.7 compatibility
+    * added web interface
     * titles in single quotes
-    * updated the progressbar bc the one I was using was gonna pull a Google Reader and stop working in July
 * **2013-03-19**, v0.0.1 first try
 
 ## roadmap

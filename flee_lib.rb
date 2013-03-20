@@ -7,7 +7,7 @@ class Blog
   attr_accessor :pages
   def initialize (xml, filename)
     @filename = filename
-    document = Nokogiri::XML xml
+    document = Nokogiri::XML normalize(xml)
     @pages = Array.new
     items = document.xpath("//item")
     prog = ProgressBar.create(:title => "Reading", :total => items.length)
@@ -16,6 +16,10 @@ class Blog
       # break if index == 4
       prog.increment
     end
+  end
+  def normalize(xml)
+    # iron out some kinks that are causing errors
+    xml.gsub(/data-image/, 'src')
   end
   def write
     foldername = @filename.gsub(/\.xml$/, '')
