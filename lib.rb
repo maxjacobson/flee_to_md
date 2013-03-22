@@ -52,8 +52,8 @@ class Blog
         str << "link: #{page.link}\n"
       end
       str << "---\n\n"
-      str << page.markdown
-      page_filename = "#{page.date.strftime('%Y-%m-%d')}-#{page.title.downcase.gsub(/\s+/, '-').gsub(/[^-\w\d]/,'')}.md"
+      str << page.markdown.gsub(/\\("|'|\[|\]|\:)/,'\1')
+      page_filename = "#{page.date.strftime('%Y-%m-%d')}-#{page.title.downcase.gsub(/\s+/, '-').gsub(/[^-\w\d]/,'')}.md".gsub(/[^\w\d](.md)$/, '.md')
       File.open("#{@foldername}/#{page_filename}", 'w') { |file| file.write(str) }
       prog.increment
     end

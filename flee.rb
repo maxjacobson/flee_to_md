@@ -1,6 +1,6 @@
-# v0.0.3
+# v0.0.4
 
-require File.expand_path('../flee_lib', __FILE__)
+require File.expand_path('../lib', __FILE__)
 
 filename = ARGV[0]
 xml = File.open(filename).read
