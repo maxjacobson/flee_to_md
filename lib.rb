@@ -42,8 +42,13 @@ class Blog
     `mkdir #{@foldername}/attachments`
     @pages.each do |page|
       if page.attachment_url != "" # is an attachment
+        extension = /(\.[\w\d]+)$/
+        if page.attachment_url =~ extension
+          filename = "#{page.title}#{page.attachment_url.match(extension)[1]}"
+        else
+          filename = page.title
+        end
         open(page.attachment_url) {|f|
-          filename = "#{page.title}#{page.attachment_url.match(/(\.[\w\d]+)$/)[1]}"
           File.open("#{@foldername}/attachments/#{filename}","wb") do |file|
             file.puts f.read
           end
