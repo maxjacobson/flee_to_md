@@ -2,6 +2,7 @@ require 'rubygems'
 require 'nokogiri' # helps parse xml
 require 'kramdown' # markdown implementation
 require 'ruby-progressbar' # for nice output
+require 'open-uri'
 
 class Blog
   attr_accessor :pages
@@ -38,23 +39,33 @@ class Blog
     end
     prog = ProgressBar.create(:title => "Writing", :total => @pages.length)
     `mkdir #{@foldername}`
+    `mkdir #{@foldername}/attachments`
     @pages.each do |page|
-      str = "---\n"
-      str << "title: '#{page.title}'\n"
-      str << "date: #{page.date.strftime "%Y-%m-%d %H:%M:%S %z"}\n"
-      if page.categories.length > 0
-        str << "categories: [#{page.categories.join(", ")}]\n"
+      if page.attachment_url != "" # is an attachment
+        open(page.attachment_url) {|f|
+          filename = "#{page.title}#{page.attachment_url.match(/(\.[\w\d]+)$/)[1]}"
+          File.open("#{@foldername}/attachments/#{filename}","wb") do |file|
+            file.puts f.read
+          end
+        }
+      else # is not an attachment
+        str = "---\n"
+        str << "title: '#{page.title}'\n"
+        str << "date: #{page.date.strftime "%Y-%m-%d %H:%M:%S %z"}\n"
+        if page.categories.length > 0
+          str << "categories: [#{page.categories.join(", ")}]\n"
+        end
+        if page.tags.length > 0
+          str << "tags: [#{page.tags.join(", ")}]\n"
+        end
+        if page.type == "linkpost"
+          str << "link: #{page.link}\n"
+        end
+        str << "---\n\n"
+        str << page.markdown.gsub(/\\("|'|\[|\]|\:)/,'\1')
+        page_filename = "#{page.date.strftime('%Y-%m-%d')}-#{page.title.downcase.gsub(/\s+/, '-').gsub(/[^-\w\d]/,'')}.md".gsub(/[^\w\d](.md)$/, '.md')
+        File.open("#{@foldername}/#{page_filename}", 'w') { |file| file.write(str) }
       end
-      if page.tags.length > 0
-        str << "tags: [#{page.tags.join(", ")}]\n"
-      end
-      if page.type == "linkpost"
-        str << "link: #{page.link}\n"
-      end
-      str << "---\n\n"
-      str << page.markdown.gsub(/\\("|'|\[|\]|\:)/,'\1')
-      page_filename = "#{page.date.strftime('%Y-%m-%d')}-#{page.title.downcase.gsub(/\s+/, '-').gsub(/[^-\w\d]/,'')}.md".gsub(/[^\w\d](.md)$/, '.md')
-      File.open("#{@foldername}/#{page_filename}", 'w') { |file| file.write(str) }
       prog.increment
     end
     puts "Written to #{@foldername}/"
@@ -64,7 +75,8 @@ end
 
 class Page
   attr_accessor :title, :permalink, :link, :date, :html, :markdown,
-    :type, :post_id, :status, :tags, :categories, :link
+    :type, :post_id, :status, :tags, :categories, :link,
+    :attachment_url, :attachment_filename
   def initialize (item)
     @title = item.xpath("title").children.to_s
     @permalink = item.xpath("link").children.to_s
@@ -79,6 +91,11 @@ class Page
     if link != ""
       @type = "linkpost"
       @link = link
+    end
+    @attachment_url = item.xpath("wp:attachment_url").children.to_s
+    if @attachment_url != ""
+      @attachment_filename = item.xpath("wp:post_name").children.to_s
+      @type = "file"
     end
     @categories = []
     @tags = []

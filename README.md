@@ -13,7 +13,9 @@ helps convert a big xml file (like from squarespace) to markdown files
 
 ## changelog
 
-* **2013-0321**, v0.0.4
+* **2013-03-23**, v0.0.5
+    * downloads attachments
+* **2013-03-21**, v0.0.4
     * removed some of the escaping `\` characters that kramdown was adding
     * removed the trailing hyphens in some filenames (where the title ends in a -> like character)
 * **2013-03-20**, v0.0.3
