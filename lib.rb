@@ -38,8 +38,8 @@ class Blog
       end
     end
     prog = ProgressBar.create(:title => "Writing", :total => @pages.length)
-    `mkdir #{@foldername}`
-    `mkdir #{@foldername}/attachments`
+    Dir.mkdir @foldername
+    Dir.mkdir "#{@foldername}/attachments"
     @pages.each do |page|
       if page.attachment_url != "" # is an attachment
         extension = /(\.[\w\d]+)$/
@@ -135,7 +135,7 @@ class Page
     if RUBY_VERSION.to_f >= 1.9
       return Time.new year, month, day, hour, minute, second, offset
     else
-      return Time.local(year,month, day, hour, minute, second)
+      return Time.local(year, month, day, hour, minute, second)
     end
   end
 end

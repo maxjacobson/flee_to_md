@@ -1,4 +1,4 @@
-# v0.0.5
+# v0.0.6
 
 require File.expand_path('../lib', __FILE__)
 

@@ -13,6 +13,8 @@ helps convert a big xml file (like from squarespace) to markdown files
 
 ## changelog
 
+* **2013-04-01**, v0.0.6
+    * better support for windows (I think)
 * **2013-03-23**, v0.0.5
     * downloads attachments
 * **2013-03-21**, v0.0.4
