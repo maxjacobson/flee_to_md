@@ -26,16 +26,9 @@ class Blog
     foldername = @filename.gsub(/\.xml$/, '')
     @foldername = foldername
     i = 1
-    if RUBY_VERSION.to_f >= 1.9
-      until Dir.exists?(@foldername) == false
-        @foldername = "#{i}-#{foldername}"
-        i += 1
-      end
-    else
-      until File.exists?(@foldername) == false
-        @foldername = "#{i}-#{foldername}"
-        i += 1
-      end
+    until File.exists?(@foldername) == false
+      @foldername = "#{i}-#{foldername}"
+      i += 1
     end
     prog = ProgressBar.create(:title => "Writing", :total => @pages.length)
     Dir.mkdir @foldername
@@ -48,11 +41,11 @@ class Blog
         else
           filename = page.title
         end
-        open(page.attachment_url) {|f|
+        open(page.attachment_url) do |f|
           File.open("#{@foldername}/attachments/#{filename}","wb") do |file|
             file.puts f.read
           end
-        }
+        end
       else # is not an attachment
         str = "---\n"
         str << "title: '#{page.title}'\n"
