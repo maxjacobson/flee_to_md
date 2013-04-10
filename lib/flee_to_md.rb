@@ -5,7 +5,7 @@ require 'ruby-progressbar' # for nice output
 require 'open-uri'
 
 module Flee_to_md
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
   LAST_UPDATED = "2013-04-10"
   class Blog
     attr_accessor :pages

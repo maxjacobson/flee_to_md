@@ -5,7 +5,7 @@ Gem::Specification.new do |flee_to_md|
   flee_to_md.version       = Flee_to_md::VERSION
   flee_to_md.date          = Flee_to_md::LAST_UPDATED
   flee_to_md.summary       = "Helps convert a big xml file (like from squarespace) into separate markdown files (like for statamic)"
-  flee_to_md.description   = File.open("README.md").read
+  flee_to_md.description   = "Helps convert a big xml file (like from squarespace) into separate markdown files"
   flee_to_md.authors       = ["Max Jacobson"]
   flee_to_md.email         = "max@maxjacobson.net"
   flee_to_md.files         = Dir[
