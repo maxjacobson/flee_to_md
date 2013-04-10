@@ -1,0 +1,22 @@
+#!/usr/bin/ruby
+
+require File.expand_path('../../lib/flee_to_md', __FILE__)
+require 'optparse'
+
+ARGV.push "-h" if ARGV.length == 0
+optparse = OptionParser.new do |opts|
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts "run: flee_to_md your_xml_file.xml"
+    exit
+  end
+  opts.on( '-v', '--version', 'Version Information') do
+    puts "flee_to_md v#{Flee_to_md::VERSION}"
+    exit
+  end
+end
+
+optparse.parse!
+
+filename = ARGV[0]
+xml = File.open(filename).read
+folder = Flee_to_md::Blog.new(xml, filename).write

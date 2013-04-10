@@ -2,17 +2,20 @@
 
 helps convert a big xml file (like from squarespace) to markdown files
 
-## dependencies
+## installation
 
-* get [rubygems](http://rubygems.org/pages/download)
-* run `gem install nokogiri kramdown ruby-progressbar`
+`gem install flee_to_md`
+
+(you'll need [rubygems](https://rubygems.org/pages/download))
 
 ## usage
 
-* download this repo and run `ruby flee.rb your.xml` from the same directory as your xml file and it will make a folder of markdown files right there
+run `flee_to_md {your_xml_file}.xml`
 
 ## changelog
 
+* **2013-04-10**, v0.1.0,
+    * repackaged as a rubygem for easier installation / usage
 * **2013-04-01**, v0.0.6
     * better support for windows (I think)
 * **2013-03-23**, v0.0.5
